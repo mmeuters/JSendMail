@@ -39,30 +39,39 @@ public class SendEmail
 {
 	// The recipient of the mail
 	private String recipient = null;
+	public void setRecipient(String value) { this.recipient = value; };
 
 	// The sender of the mail
 	private String sender = null;
+	public void setSender(String value) { this.sender = value; };
 
 	// The host-server the mail is sent from (smtp-server host)
 	private String smtp_host = null;
+	public void setSmtpHost(String value) { this.smtp_host = value; };
 
 	// The port on which the host-server is listening (smtp-server host port)
 	private int smtp_host_port = 0;
+	public void setSmtpHostPort(int value) { this.smtp_host_port = value; };
 
 	// The username to authenticate on the smtp server
 	private String smtp_username = null;
+	public void setSmtpUsername(String value) { this.smtp_username = value; };
 
 	// The fitting password for the above mentioned user
 	private String smtp_password = null;
+	public void setSmtpPassword(String value) { this.smtp_password = value; };
 
 	// The subject for the mail
 	private String subject = null;
+	public void setSubject(String value) { this.subject = value; };
 
 	// The message to be sent
 	private String message = null;
+	public void setMessage(String value) { this.message = value; };
 
 	// A file-attachement may be added to the mail
 	private File attachement = null;
+	public void setAttachement(File value) { this.attachement = value; };
 
 	// Should debug information be printed to console?
 	// Default is 'false'
