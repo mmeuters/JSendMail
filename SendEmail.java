@@ -27,6 +27,8 @@ SOFTWARE.
  * <marlon.meuters@cluster-one.eu>.
  */
 
+package JSendEmail;
+
 import java.util.*;
 import java.io.File;
 import javax.mail.*;

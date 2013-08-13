@@ -27,6 +27,8 @@ SOFTWARE.
  * <marlon.meuters@cluster-one.eu>.
  */
 
+package JSendEmail;
+
 public class SendEmailTest
 {
 	public static void main(String[] args)
