@@ -94,7 +94,7 @@ public class SendEmail
 		super();
 	}
 
-	public void send() {
+	public void send() throws MessagingException {
 	      Properties properties = System.getProperties();
 	      properties.put("mail.smtp.host", this.smtp_host);
 	      properties.put("mail.smtp.port", this.smtp_host_port);
@@ -118,32 +118,29 @@ public class SendEmail
 	      Session session = Session.getDefaultInstance(properties, auth);
 	      session.setDebug(this.debugMode);
 	      
-	      try {
-	    	 MimeMessage message =  new MimeMessage(session);
-	    	 message.setFrom(new InternetAddress(this.sender));
-	    	 message.addRecipient(Message.RecipientType.TO, new InternetAddress(this.recipient));
-	    	 message.setSubject(this.subject);
 
-	         MimeBodyPart messageBodyPart = new MimeBodyPart();
-	         messageBodyPart.setText(this.message);
+    	 MimeMessage message =  new MimeMessage(session);
+    	 message.setFrom(new InternetAddress(this.sender));
+    	 message.addRecipient(Message.RecipientType.TO, new InternetAddress(this.recipient));
+    	 message.setSubject(this.subject);
 
-	         Multipart multipart = new MimeMultipart();
-	         multipart.addBodyPart(messageBodyPart);
-	         
-	         if (this.attachement != null) {
-	         	messageBodyPart = new MimeBodyPart();
-	         	DataSource source = new FileDataSource(this.attachement.getAbsolutePath());
-	         	messageBodyPart.setDataHandler(new DataHandler(source));
-	         	messageBodyPart.setFileName(this.attachement.getName());
-	         	multipart.addBodyPart(messageBodyPart);
-	         }
+         MimeBodyPart messageBodyPart = new MimeBodyPart();
+         messageBodyPart.setText(this.message);
 
-	         message.setContent(multipart);
-	         
-	         Transport.send(message);
-	      } catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
+         Multipart multipart = new MimeMultipart();
+         multipart.addBodyPart(messageBodyPart);
+         
+         if (this.attachement != null) {
+         	messageBodyPart = new MimeBodyPart();
+         	DataSource source = new FileDataSource(this.attachement.getAbsolutePath());
+         	messageBodyPart.setDataHandler(new DataHandler(source));
+         	messageBodyPart.setFileName(this.attachement.getName());
+         	multipart.addBodyPart(messageBodyPart);
+         }
+
+         message.setContent(multipart);
+         
+         Transport.send(message);
 	}
 
 	public static void sendMail(String recipient, String sender, String smtp_host, int smtp_host_port, String smtp_username, String smtp_password, String subject, String message) 
@@ -157,7 +154,12 @@ public class SendEmail
 		mail.smtp_password = smtp_password;
 		mail.subject = subject;
 		mail.message = message;
-		mail.send();
+		
+		try {
+			mail.send();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void sendMail(String recipient, String sender, String smtp_host, int smtp_host_port, String smtp_username, String smtp_password, String subject, String message, String attachement) 
@@ -179,6 +181,10 @@ public class SendEmail
 			}
 		}
 
-		mail.send();
+		try {
+			mail.send();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 }
